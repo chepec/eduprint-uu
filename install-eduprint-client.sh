@@ -26,6 +26,9 @@
 #   skalar om "fel" pappersstorlek. På det sättet
 #   slipper vi utskrifter som försvinner i skrivaren
 #   på grund av att de inte är A3 eller A4.
+# 
+# added to https://github.com/chepec/eduprint-uu
+#   see the github repo's history for change history
 
 # För att underlätta avlusning av nya versioner
 DEBUG="$1"
@@ -48,9 +51,7 @@ else
 fi
 
 # Meddelanden
-MSG_NO_JAVA8[0]="You don't have java 8 installed. Please install java and then restart the installation."
-MSG_NO_JAVA8[1]="Du har inte java 8 installerat. Installera java och starta sedan om installationen."
-MSG_NO_ROOT[0]="The intall must be done as the root user or with sudo."
+MSG_NO_ROOT[0]="The install must be done as the root user or with sudo."
 MSG_NO_ROOT[1]="Installationen måste köras som root eller med sudo."
 MSG_FOLDER_EXIST[0]="The folder /usr/share/eduprint-client already exist, do you still want to continue? (y/n)"
 MSG_FOLDER_EXIST[1]="Katalogen /usr/share/eduprint-client existerar redan, fortsätta ändå? (j/n)"
@@ -59,38 +60,18 @@ MSG_ABORT_INSTALL[1]="Avbryter installationen"
 MSG_FINISHED[0]="Installation complete, what remains is to make shure that /usr/share/eduprint-client/pc-client-linux.sh is launched automatically on login. How this is done differs between linux distributions."
 MSG_FINISHED[1]="Installationen är klar, det du behöver göra nu är att se till att /usr/share/eduprint-client/pc-client-linux.sh startas automatiskt när du loggar in. Hur detta görs skiljer sig mellan olika linuxdistributioner."
 
-# Först kontrollerar vi vilken java-version som är installerad
-# Egentligen borde vi kontrollera att det är 1.8 eller högre, men just nu är 1.8 den senaste versionen
-JAVA_VERSION=$(java -version 2>&1 | grep 1.8)
-
-if [ "$JAVA_VERSION" == "" ] ; then
-  echo "${MSG_NO_JAVA8[$LANG]}"
-  exit 1
-fi
-
-# Nu vet vi att vi har java 8, för att köra resten av skriptet måste
+# För att köra resten av skriptet måste
 # vi ha rooträttigheter. Låt oss kontrollera detta.
 if [ $EUID -ne 0 ] ; then
   echo "${MSG_NO_ROOT[$LANG]}"
   exit 1
 fi
 
-# Skapa katalogen /usr/share/eduprint-client. Om den redan finns,
-# varna och fråga om vi ändå ska fortsätta.
-if [ -e /usr/share/eduprint-client ] ; then
-  echo "${MSG_FOLDER_EXIST[$LANG]}"
-  read SVAR
-  echo "$SVAR" | grep -e '[jJyY]' >/dev/null
-  if [ $? -ne 0 ] ; then
-    echo "${MSG_ABORT_INSTALL[$LANG]}"
-    exit 1
-  fi
+# Skapa katalogen /usr/share/eduprint-client. Will be overwritten if it already exists. 
+if [ $DEBUG ] ; then
+  echo "mkdir /usr/share/eduprint-client"
 else
-  if [ $DEBUG ] ; then
-    echo "mkdir /usr/share/eduprint-client"
-  else
-    mkdir /usr/share/eduprint-client
-  fi
+  mkdir /usr/share/eduprint-client
 fi
 
 # Kopiera klienten till denna katalog
