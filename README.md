@@ -10,10 +10,10 @@ script being up-to-date**. If you want to be sure you have the latest eduprint U
 
 ## Requirements
 
-The system needs to have Java (on Debian/Ubuntu something like `apt install default-jdk default-jre-headless` should suffice) and CUPS (`apt install cups`) installed. The installer will not attempt to 
-install these dependencies for you.
+The script needs CUPS (`apt install cups`). The installer will not attempt to install 
+it for you.
 
-The installer will install samba-client and foomatic if they are not already installed on your 
+The installer *will* install samba-client and foomatic if they are not already installed on your 
 system.
 
 
@@ -30,5 +30,3 @@ $ cd eduprint-uu
 chepec@kemi.uu.se:~/eduprint-uu
 $ sudo ./install-eduprint.sh
 ```
-
-
