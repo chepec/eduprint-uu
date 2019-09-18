@@ -39,5 +39,4 @@ When you print, eduprint should challenge you for a username/password.
 Make sure to write `USER\<username>@user.uu.se` in the username field, and 
 **password A** in the password field.
 
-This has been tested to work, at least on my system (headless Ubuntu 18.04 
-with i3wm).
+This has been tested to work, at least on my system (Ubuntu 18.04 running lightdm/i3wm).
