@@ -5,7 +5,7 @@ to share this code under the GPL I seen no reason to keep this repo private.
 
 Feel free to use this repo if it suits you. But please note that I offer **no guarantees on this 
 script being up-to-date**. If you want to be sure you have the latest eduprint UU script, 
-[get it from MP directly](https://mp.uu.se/web/info/stod/it-telefoni/utskrift/kom-igang-med-eduprint/eduprint-linux).
+[get it from MP directly](https://mp.uu.se/web/info/stod/it-telefoni/it-arbetsplats/utskrift/kom-igang-med-eduprint/eduprint-linux).
 
 
 ## Requirements
@@ -30,3 +30,14 @@ $ cd eduprint-uu
 chepec@kemi.uu.se:~/eduprint-uu
 $ sudo ./install-eduprint.sh
 ```
+
+
+
+## Printing
+
+When you print, eduprint should challenge you for a username/password.
+Make sure to write `USER\<username>@user.uu.se` in the username field, and 
+**password A** in the password field.
+
+This has been tested to work, at least on my system (headless Ubuntu 18.04 
+with i3wm).
